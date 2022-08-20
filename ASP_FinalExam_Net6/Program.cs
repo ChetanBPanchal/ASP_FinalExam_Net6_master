@@ -10,6 +10,16 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseInMemoryDatabase(databaseName: "FinalExamDB"));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
+builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseInMemoryDatabase(databaseName: "FinalExam"));
+// Google authentication
+object value = builder.Services.AddAuthentication().AddGoogle(googleOptions =>
+{
+    //for using the JSON authentication
+    //googleOptions.ClientId = builder.Configuration["Google:Authentication:clientid"];
+    googleOptions.ClientId = "842113652126-lheqdsb8hua2pk7remb3stchfc9l7elb.apps.googleusercontent.com";
+    googleOptions.ClientSecret = "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";
+});
+
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
